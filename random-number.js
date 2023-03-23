@@ -6,4 +6,4 @@ document.getElementById("current-now").innerHTML = current.toFixed(2) + " kW";
 document.getElementById("current-monthly").innerHTML = monthly_current.toFixed(2) + " kW";
 setTimeout(() => {
     document.location.reload();
-  }, 3000);
+  }, 5500);
