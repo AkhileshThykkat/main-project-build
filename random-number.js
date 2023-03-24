@@ -1,4 +1,4 @@
-let current = (25 + Math.random()*0.75) ;
+let current = (25 + Math.random()*1.75) ;
 var monthly_current = 200 +(Math.random() * 0.25);
 
 
