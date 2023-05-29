@@ -3,11 +3,48 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Energy and Water Consumption in Building</title>
+    <title>Conserve/Pro: Energy and Water Consumption in Building</title>
+    <link rel = "icon" href = "logo-color.png" type = "image/x-icon">
     <link rel="icon" type="image/png"
         href="kisspng-electricity-computer-icons-symbol-company-electric-electric-5abdc00c68c5a8.0630823215223849084292.jpg" />
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+
+        body {
+            margin: 0;
+            font-family: 'Roboto Mono', monospace;
+            color: darkslategrey;
+        }
+
+        h1,
+        h2 {
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 700;
+            color: #204577;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Added styles for header and logo */
+        .header {
+            
+            display: flex;
+            color: cadetblue;
+            width: 100%;
+            align-items: center;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            line-height: 20px;
+            text-decoration: underline;
+        }
+        
+        .header-logo {
+            margin-right: 20px;
+            width: 150px;
+            height: 150px;
+            margin-right: 1rem;
+        }
+
         .power-consumption {
             position: relative;
             transition: all 0.3s;
@@ -90,13 +127,34 @@
         .charge:hover {
             background-color: #f1f1f1;
         }
+        #heading-word{
+            font-size: 50px;
+        }
+        #main-grid{
+            margin-left: 60px;
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+
+        /* Media Query for Mobile */
+        @media (max-width: 640px) {
+            .charge {
+                margin-left: 10%;
+                width: 100%;
+
+            }
+        }
+
     </style>
 </head>
 
 <body class="bg-gray-300">
-    <div class="container mx-auto py-10">
-        <h1 class="text-3xl font-bold mb-5">Energy and Water Consumption</h1>
-        <div class="grid grid-cols-3 gap-4">
+    <div class="container mx-0 py-0">
+        <div class="header">
+            <img src="logo-color.png" alt="Conserve/Pro Logo" class="header-logo">
+            <h1 id="heading-word" class="text-3xl font-bold">Conserve/Pro</h1>
+        </div>
+        <div id="main-grid" class="grid grid-cols-3 gap-4">
             <div class="p-4 bg-white rounded-lg shadow-md power-consumption hover:bg-blue-100">
                 <h2 class="text-xl font-bold mb-4">Electricity Usage</h2>
                 <div class="relative">
@@ -104,7 +162,7 @@
                     <div class="bg-blue-500 h-6 absolute top-0 left-0 rounded-full" style="width: 60%"></div>
                 </div>
                 <div class="flex justify-between items-center mt-4">
-                    <span id="temporary" class="text-gray-500">Voltage:</span>
+                    <span id="temporary" class="text-gray-500">Power:</span>
                     <span class="text-lg font-bold" id="current-now">12 kW</span>
                 </div>
                 <div class="individual-power-consumption">
@@ -150,7 +208,7 @@
             </div>
         </div>
     </div>
-    <div class="charge hover:bg-yellow-100">
+    <div class="charge hover:bg-red-100">
         <h2 class="text-xl font-bold mb-4">Charge in Rupees</h2>
         <div class="relative">
             
@@ -158,14 +216,49 @@
         </div>
         <div class="flex justify-between items-center mt-4">
             <span class="text-gray-500">Power:</span>
-            <span class="text-lg font-bold">--kW</span>
+            <span id= "price-kw" class="text-lg font-bold">--kW</span>
         </div>
         <div class="flex justify-between items-center mt-4">
             <span class="text-gray-500">Charge:</span>
-            <span class="text-lg font-bold">--Rupee</span>
+            <span class="text-lg font-bold">0.0Rupees</span>
         </div>
     </div>
-    <script src="data-updation.js"></script>
+    <script>
+        function updateData() {
+            // 1) Update individual power consumption values
+            const individualPowerConsumption = document.querySelectorAll('.individual-power-consumption-item span:last-child');
+            individualPowerConsumption.forEach(element => {
+                const value = getRandomValue(7, 8,0.2);
+                element.textContent = value + ' W';
+            });
+    
+            // 2) Update total power consumption
+            const totalPowerConsumption = document.getElementById('current-now');
+            const totalKw = document.getElementById('price-kw');
+            const powerValues = Array.from(individualPowerConsumption).map(element => parseFloat(element.textContent));
+            const totalValue = powerValues.reduce((total, value) => total + value, 0);
+            totalPowerConsumption.textContent = totalValue.toFixed(2) + ' W';
+            totalKw.textContent = totalValue.toFixed(2) + ' W';
+    
+            // 3) Update pH value
+            const phValue = document.querySelector('.ph-value .text-lg');
+            const newValue = getRandomValue(7, 9, 0.5);
+            phValue.textContent = newValue.toFixed(1);
+        }
+    
+        function getRandomValue(min, max, step = 1) {
+            const range = (max - min) / step;
+            const randomStep = Math.floor(Math.random() * range);
+            return (min + randomStep * step);
+        }
+    
+        // Call the updateData function initially
+        updateData();
+    
+        // Refresh the values every 5 seconds
+        setInterval(updateData, 5000);
+    </script>
+    
 </body>
 
 </html>
