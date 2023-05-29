@@ -4,15 +4,100 @@
 <head>
     <meta charset="UTF-8">
     <title>Energy and Water Consumption in Building</title>
-    <link rel="icon" type="image/png" href="kisspng-electricity-computer-icons-symbol-company-electric-electric-5abdc00c68c5a8.0630823215223849084292.jpg"/>
+    <link rel="icon" type="image/png"
+        href="kisspng-electricity-computer-icons-symbol-company-electric-electric-5abdc00c68c5a8.0630823215223849084292.jpg" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .power-consumption {
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .power-consumption:hover {
+            transform: scale(1.05);
+        }
+
+        .individual-power-consumption {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            background-color: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .power-consumption:hover .individual-power-consumption {
+            display: block;
+        }
+
+        .individual-power-consumption-item {
+            flex: 1;
+            text-align: center;
+        }
+
+        .charge {
+            text-align: center;
+            margin-top: 2rem;
+            transition: all 0.3s;
+            transform: scale(1);
+            background-color: #fff;
+            padding: 1rem;
+            margin-left: 30rem;
+            width: 400px;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .power-consumption:hover .charge {
+            transform: scale(1.1);
+        }
+
+        /* Added styles for individual power consumption */
+        .individual-power-consumption-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+        }
+
+        .individual-power-consumption-item:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Added hovering animations for all sections */
+        .power-consumption,
+        .water-consumption,
+        .ph-value,
+        .charge {
+            transition: all 0.3s;
+        }
+
+        .power-consumption:hover,
+        .water-consumption:hover,
+        .ph-value:hover,
+        .charge:hover {
+            transform: scale(1.05);
+            cursor: pointer;
+        }
+
+        .individual-power-consumption-item:hover,
+        .water-consumption:hover,
+        .ph-value:hover,
+        .charge:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
 </head>
 
 <body class="bg-gray-300">
     <div class="container mx-auto py-10">
         <h1 class="text-3xl font-bold mb-5">Energy and Water Consumption</h1>
         <div class="grid grid-cols-3 gap-4">
-            <div class="p-4 bg-white rounded-lg shadow-md">
+            <div class="p-4 bg-white rounded-lg shadow-md power-consumption hover:bg-blue-100">
                 <h2 class="text-xl font-bold mb-4">Electricity Usage</h2>
                 <div class="relative">
                     <div class="bg-gray-200 h-6 rounded-full"></div>
@@ -22,12 +107,22 @@
                     <span id="temporary" class="text-gray-500">Voltage:</span>
                     <span class="text-lg font-bold" id="current-now">12 kW</span>
                 </div>
-                <div class="flex justify-between items-center mt-4">
-                    <span class="text-gray-500">Monthly Average:</span>
-                    <span class="text-lg font-bold" id="current-monthly">200 kW</span>
+                <div class="individual-power-consumption">
+                    <div class="individual-power-consumption-item">
+                        <span>Device 1:</span>
+                        <span>-- W</span>
+                    </div>
+                    <div class="individual-power-consumption-item">
+                        <span>Device 2:</span>
+                        <span>-- W</span>
+                    </div>
+                    <div class="individual-power-consumption-item">
+                        <span>Device 3:</span>
+                        <span>-- W</span>
+                    </div>
                 </div>
             </div>
-            <div class="p-4 bg-white rounded-lg shadow-md">
+            <div class="p-4 bg-white rounded-lg shadow-md water-consumption hover:bg-green-100">
                 <h2 class="text-xl font-bold mb-4">Water Consumption</h2>
                 <div class="relative">
                     <div class="bg-gray-200 h-6 rounded-full"></div>
@@ -37,12 +132,8 @@
                     <span class="text-gray-500">Current:</span>
                     <span class="text-lg font-bold">-- L</span>
                 </div>
-                <div class="flex justify-between items-center mt-4">
-                    <span class="text-gray-500">Monthly Average:</span>
-                    <span class="text-lg font-bold">-- L</span>
-                </div>
             </div>
-            <div class="p-4 bg-white rounded-lg shadow-md">
+            <div class="p-4 bg-white rounded-lg shadow-md ph-value hover:bg-yellow-100">
                 <h2 class="text-xl font-bold mb-4">pH Value</h2>
                 <div class="relative">
                     <div class="bg-gray-200 h-6 rounded-full"></div>
@@ -57,6 +148,21 @@
                     <span class="text-lg font-bold">7.0-7.5</span>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="charge hover:bg-yellow-100">
+        <h2 class="text-xl font-bold mb-4">Charge in Rupees</h2>
+        <div class="relative">
+            
+            
+        </div>
+        <div class="flex justify-between items-center mt-4">
+            <span class="text-gray-500">Power:</span>
+            <span class="text-lg font-bold">--kW</span>
+        </div>
+        <div class="flex justify-between items-center mt-4">
+            <span class="text-gray-500">Charge:</span>
+            <span class="text-lg font-bold">--Rupee</span>
         </div>
     </div>
     <script src="data-updation.js"></script>
